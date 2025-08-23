@@ -20,6 +20,9 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'   # Change to your Flutter version
+      - name: List repo files
+        run: ls -R
+
 
       # Get dependencies
       - name: Install dependencies
