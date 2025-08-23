@@ -1,30 +1,32 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility in the flutter_test package. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
-
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
 import 'package:theme_custom/main.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
-    // Build our app and trigger a frame.
-    await tester.pumpWidget(MyApp());
+  testWidgets('Theme Store loads with title', (WidgetTester tester) async {
+    // Build our app
+    await tester.pumpWidget(const MyApp());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    // Check if the app bar or main title contains "Theme Store"
+    expect(find.text('Theme Store'), findsOneWidget);
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
+    // Example: Check if at least one theme card is rendered
+    expect(find.byType(Card), findsWidgets);
+  });
 
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+  testWidgets('Can switch to dark theme', (WidgetTester tester) async {
+    await tester.pumpWidget(const MyApp());
+
+    // Initially app is in light mode (background should be white)
+    final Scaffold scaffold = tester.widget(find.byType(Scaffold));
+    expect(scaffold.backgroundColor, equals(Colors.white));
+
+    // Tap the toggle theme button
+    await tester.tap(find.byIcon(Icons.brightness_6));
+    await tester.pumpAndSettle();
+
+    // Now scaffold background should be dark
+    final Scaffold scaffoldAfter = tester.widget(find.byType(Scaffold));
+    expect(scaffoldAfter.backgroundColor, equals(Colors.black));
   });
 }
