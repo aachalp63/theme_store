@@ -3,10 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_custom/main.dart';
 
-
 void main() {
   testWidgets('Theme Store loads with title', (WidgetTester tester) async {
-    // Wrap MyApp with Provider
     await tester.pumpWidget(
       ChangeNotifierProvider(
         create: (_) => ThemeProvider(),
@@ -14,7 +12,6 @@ void main() {
       ),
     );
 
-    // Verify that the app title is present
     expect(find.text('Theme Store'), findsOneWidget);
   });
 
@@ -26,11 +23,17 @@ void main() {
       ),
     );
 
-    // Tap the theme toggle button
-    await tester.tap(find.byIcon(Icons.brightness_6));
+    // Tap on theme toggle button
+    final toggleButton = find.byIcon(Icons.brightness_6); // adjust if you use different icon
+    expect(toggleButton, findsOneWidget);
+
+    await tester.tap(toggleButton);
     await tester.pumpAndSettle();
 
-    // Verify UI changed after toggle (example: dark mode text)
-    expect(find.text('Dark Mode'), findsOneWidget);
+    // Check if theme switched (by checking a dark background or icon change)
+    final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
+    final bgColor = scaffold.backgroundColor ?? Theme.of(tester.element(find.byType(Scaffold))).scaffoldBackgroundColor;
+
+    expect(bgColor, equals(Colors.black));
   });
 }
