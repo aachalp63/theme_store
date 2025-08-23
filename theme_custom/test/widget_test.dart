@@ -16,27 +16,27 @@ void main() {
   });
 
   testWidgets('Can switch to dark theme', (WidgetTester tester) async {
-    await tester.pumpWidget(
-      ChangeNotifierProvider(
-        create: (_) => ThemeProvider(),
-        child: const MyApp(),
-      ),
-    );
+  await tester.pumpWidget(
+    ChangeNotifierProvider(
+      create: (_) => ThemeProvider(),
+      child: const MyApp(),
+    ),
+  );
 
-    await tester.pumpAndSettle();
+  await tester.pumpAndSettle();
 
-    // Verify default theme (light)
-    BuildContext context = tester.element(find.byType(MaterialApp));
-    ThemeData theme = Theme.of(context);
-    expect(theme.brightness, Brightness.light);
+  // Initially light background
+  BuildContext context = tester.element(find.byType(MaterialApp));
+  ThemeData theme = Theme.of(context);
+  expect(theme.scaffoldBackgroundColor, equals(Colors.white));
 
-    // Tap on "Theme 2" (index 1 = dark theme)
-    await tester.tap(find.text('Theme 2'));
-    await tester.pumpAndSettle();
+  // Tap on "Theme 2" (index 1 = dark theme)
+  await tester.tap(find.text('Theme 2'));
+  await tester.pumpAndSettle();
 
-    // Verify dark theme applied
-    context = tester.element(find.byType(MaterialApp));
-    theme = Theme.of(context);
-    expect(theme.brightness, Brightness.dark);
-  });
-}
+  // Now it should be dark
+  context = tester.element(find.byType(MaterialApp));
+  theme = Theme.of(context);
+  expect(theme.scaffoldBackgroundColor, equals(Colors.black));
+});
+Option 2 
