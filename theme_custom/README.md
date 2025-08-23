@@ -1,16 +1,21 @@
-# theme_custom
+# My Flutter App 🚀
 
-A new Flutter project.
+A Flutter project for [your purpose, e.g., learning, demo, portfolio, production app].
 
-## Getting Started
+## 📌 Features
+- Cross-platform: Android & iOS
+- Built with Flutter & Dart
+- Modern UI
+- Easy to customize
 
-This project is a starting point for a Flutter application.
+## 🛠️ Getting Started
 
-A few resources to get you started if this is your first Flutter project:
+### Prerequisites
+- Install [Flutter](https://docs.flutter.dev/get-started/install)
+- Install [Dart](https://dart.dev/get-dart)
+- Android Studio / VS Code with Flutter extension
 
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+### Run the App
+```bash
+flutter pub get
+flutter run
