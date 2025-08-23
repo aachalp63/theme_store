@@ -23,17 +23,20 @@ void main() {
       ),
     );
 
-    // Tap on theme toggle button
-    final toggleButton = find.byIcon(Icons.brightness_6); // adjust if you use different icon
-    expect(toggleButton, findsOneWidget);
-
-    await tester.tap(toggleButton);
     await tester.pumpAndSettle();
 
-    // Check if theme switched (by checking a dark background or icon change)
-    final scaffold = tester.widget<Scaffold>(find.byType(Scaffold));
-    final bgColor = scaffold.backgroundColor ?? Theme.of(tester.element(find.byType(Scaffold))).scaffoldBackgroundColor;
+    // Verify default theme (light)
+    BuildContext context = tester.element(find.byType(MaterialApp));
+    ThemeData theme = Theme.of(context);
+    expect(theme.brightness, Brightness.light);
 
-    expect(bgColor, equals(Colors.black));
+    // Tap on "Theme 2" (index 1 = dark theme)
+    await tester.tap(find.text('Theme 2'));
+    await tester.pumpAndSettle();
+
+    // Verify dark theme applied
+    context = tester.element(find.byType(MaterialApp));
+    theme = Theme.of(context);
+    expect(theme.brightness, Brightness.dark);
   });
 }
