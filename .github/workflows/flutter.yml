@@ -20,33 +20,30 @@ jobs:
         uses: subosito/flutter-action@v2
         with:
           flutter-version: '3.22.0'   # Change to your Flutter version
-      - name: List repo files
-        run: ls -R
-
 
       # Get dependencies
       - name: Install dependencies
         run: flutter pub get
-        working-directory: theme_store
+        working-directory: theme_custom
 
       # Analyze project
       - name: Analyze code
         run: flutter analyze
-        working-directory: theme_store
+        working-directory: theme_custom
 
       # Run tests
       - name: Run tests
         run: flutter test
-        working-directory: theme_store
+        working-directory: theme_custom
 
       # Build APK
-      - name: Build Android APK
+      - name: Build release APK
         run: flutter build apk --release
-        working-directory: theme_store
+        working-directory: theme_custom
 
       # Upload APK
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
           name: flutter-release-apk
-          path: theme_store/build/app/outputs/flutter-apk/app-release.apk
+          path: theme_custom/build/app/outputs/flutter-apk/app-release.apk
