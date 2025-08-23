@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:provider/provider.dart';
 import 'package:theme_custom/main.dart';
-import 'package:theme_custom/providers/theme_provider.dart'; // adjust import path
+
 
 void main() {
   testWidgets('Theme Store loads with title', (WidgetTester tester) async {
