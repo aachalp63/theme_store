@@ -24,19 +24,26 @@ jobs:
       # Get dependencies
       - name: Install dependencies
         run: flutter pub get
+        working-directory: theme_store
 
       # Analyze project
       - name: Analyze code
         run: flutter analyze
+        working-directory: theme_store
 
       # Run tests
       - name: Run tests
         run: flutter test
+        working-directory: theme_store
 
-      # Build APK (Optional)
+      # Build APK
       - name: Build Android APK
-        run: flutter build apk --debug
+        run: flutter build apk --release
+        working-directory: theme_store
 
-      # Build iOS (Optional, requires macOS runner)
-      # - name: Build iOS
-      #   run: flutter build ios --no-codesign
+      # Upload APK
+      - name: Upload APK
+        uses: actions/upload-artifact@v3
+        with:
+          name: flutter-release-apk
+          path: theme_store/build/app/outputs/flutter-apk/app-release.apk
