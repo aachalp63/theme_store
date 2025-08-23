@@ -17,6 +17,7 @@ void main() async {
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});  // ✅ add const + super.key
   @override
   Widget build(BuildContext context) {
     final themeProvider = Provider.of<ThemeProvider>(context);
@@ -24,7 +25,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(debugShowCheckedModeBanner: false,
       title: 'Theme Store',
       theme: themeProvider.getTheme(),
-      home: ThemeStoreScreen(),
+      home: const ThemeStoreScreen(),
     );
   }
 }
@@ -143,6 +144,7 @@ class ThemeProvider extends ChangeNotifier {
 }
 
 class ThemeStoreScreen extends StatefulWidget {
+  const ThemeStoreScreen({super.key});  // ✅ add const 
   @override
   _ThemeStoreScreenState createState() => _ThemeStoreScreenState();
 }
@@ -208,7 +210,7 @@ class _ThemeStoreScreenState extends State<ThemeStoreScreen> {
                           Navigator.push(
                             context,
                             MaterialPageRoute(
-                              builder: (_) => CustomThemeCreator(),
+                              builder: (_) => const CustomThemeCreator(),
                             ),
                           );
                         } else {
@@ -317,6 +319,7 @@ class _ThemeStoreScreenState extends State<ThemeStoreScreen> {
 }
 
 class CustomThemeCreator extends StatefulWidget {
+  const CustomThemeCreator({super.key});  // ✅ add const
   @override
   _CustomThemeCreatorState createState() => _CustomThemeCreatorState();
 }
