@@ -39,4 +39,4 @@ void main() {
   theme = Theme.of(context);
   expect(theme.scaffoldBackgroundColor, equals(Colors.black));
 });
-
+}
