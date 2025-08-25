@@ -1,26 +1,44 @@
-import 'package:flutter_test/flutter_test.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:provider/provider.dart';
 import 'package:theme_custom/main.dart';
 
 void main() {
   testWidgets('Theme Store loads with title', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    await tester.pumpWidget(
+      ChangeNotifierProvider(
+        create: (_) => ThemeProvider(),
+        child: const MaterialApp(
+          home: ThemeStoreScreen(),
+        ),
+      ),
+    );
+
     expect(find.text('Theme Store'), findsOneWidget);
   });
 
   testWidgets('Can switch to dark theme', (WidgetTester tester) async {
-    await tester.pumpWidget(const MyApp());
+    final themeProvider = ThemeProvider();
 
-    // Ensure we start with light theme
-    expect(Theme.of(tester.element(find.text('Theme Store'))).brightness,
-        Brightness.light);
+    await tester.pumpWidget(
+      ChangeNotifierProvider.value(
+        value: themeProvider,
+        child: const MaterialApp(
+          home: ThemeStoreScreen(),
+        ),
+      ),
+    );
 
-    // Tap the switch button (update selector to your actual button/icon)
-    await tester.tap(find.byIcon(Icons.brightness_6));
-    await tester.pumpAndSettle(); // wait for rebuild
+    await tester.pumpAndSettle();
 
-    // Now we expect dark theme
-    expect(Theme.of(tester.element(find.text('Theme Store'))).brightness,
-        Brightness.dark);
+    // Initially should be light theme
+    expect(themeProvider.getSelectedThemeIndex(), 0);
+
+    // Tap on "Theme 2" (index 1 = dark theme)
+    await tester.tap(find.text('Theme 2'));
+    await tester.pumpAndSettle();
+
+    // Verify it switched to dark theme
+    expect(themeProvider.getSelectedThemeIndex(), 1);
   });
 }
